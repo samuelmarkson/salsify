@@ -3,7 +3,7 @@
 ## Setup
 * Make sure python is installed
 * (Optional) Set up a python virtual environment: https://virtualenv.pypa.io/en/latest/ to keep this orject versions separate from your own development
-* Run the `build.sh` script to install all dependecies and create the databse
+* Run the `build.sh` script to install all dependecies and create the database
 * Run the `run.sh` script with a single argument on the file name that you want to read from. This will also start the server once the file has finished processing
   * `run.sh lorem.txt`
 
@@ -30,13 +30,24 @@
   * https://docs.python.org/3/
   * https://www.sqlite.org/docs.html
 * I also used a lot of Stack Overflow, but who doesn't? 
+
 #### What third-party libraries or other tools does the system use? How did you choose each library or framework you used?
 * Python - This is the language I have worked in the most and am the most comfortable in. I had also used Flask before, so I wanted to use Python for that.
 * Flask - As mentioned above, I used Flask to set up small webservices before, and it can be done with very little overhead. Also, it doesn't need any kind of database backing, which was good because I did not want to have to worry about setting up a database through a build script.
 * SQLite - Similarly, using an in-memory database is obviously not ideal for production, but this means that I did not have to worry about setting up anything more complicated using a build script.
+* Gunicorn - I used this lightweight server at my old job, and I knew that it was fairly easy to set up.
+
 #### How long did you spend on this exercise? If you had unlimited more time to spend on this, how would you spend it and how would you prioritize each item?
-* I worked on this for a total of about 5 hours. Plus it took me another 1 1/2 hours to complete this questionaire. The biggest hurdle I had was since I was mostly using a Windows machine for devlopment, the newlines also had carriage returns. So my byte numbers kept being off, and this took me a while to track down the source of the issue. Once I figured it out, I just made sure to read the file in byte mode, which doesn't care about the line endings at all.
+* I worked on this for a total of about 4 1/2 - 5 hours. Plus it took me another 1 1/2 hours to complete this questionaire.
+* The biggest hurdle I had was since I was mostly using a Windows machine for devlopment, the newlines also had carriage returns. So my byte numbers kept being off, and this took me a while to track down the source of the issue. Once I figured it out, I just made sure to read the file in byte mode, which doesn't care about the line endings at all.
+* If I had unlimted time to spend on this, I would work on these things, in order
+  1. Do a lot of speed tests with different chunk sizes to determine the optimal size for reading efficiency
+  2. Try and think of a better way to store the data to cut down on the amount of scrolling line-by-line that has to be done. The database table solution is using a b-tree though, and then we are switching to a linear search when the it becomes easy. I guess we could store every line and its byte offset in the database, but that feels very close to just copying all of the data, which I was asked not to do.
+  3. A lot of the choices I made were for the constraints of the project, but I would love to be able to use a real database
+  4. The feature request for this was pretty small, but there could be some definite added features: changes to file, not reprocessing the file every time the server starts, adding more command line argument options.
+
 #### If you were to critique your code, what would you have to say about it?
+* As mentioned above, I don't like that I am using an in-memory database, and that bugs me, but I was just worried about the constraints of this exercise so I went with minimal configuration
 * 
 
 

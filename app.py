@@ -14,7 +14,7 @@ FILENAME = os.environ.get("FILENAME")
 def hello():
     return "Hello Salsify!"
 
-# FIRST PASS, very simple
+# FIRST PASS, very naive
 # @application.route("/lines/old/<int:line_num>")
 # def get_line_first_version(line_num):
 #   line_index = 1
